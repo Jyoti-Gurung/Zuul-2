@@ -96,30 +96,39 @@ int main() {
   endl << "7: Print Inventory" <<
   endl << "8: Quit game" << endl;
 
+  printRoom(currentRoom);
+  printMap(currentRoom);
+
   int logic;
   while (logic != 8) {
-    
-    printRoom(currentRoom);
-    printMap(currentRoom);
 
     cout << endl;
     cin >> logic;
+    if (logic != 9) {
     switch(logic) {
       case 1:
         printRoom(one);
         currentRoom = one;
+        printRoom(currentRoom);
+        printMap(currentRoom);
         break;
       case 2:
         printRoom(two);
         currentRoom = two;
+        printRoom(currentRoom);
+        printMap(currentRoom);
         break;
       case 3:
         printRoom(three);
         currentRoom = three;
+        printRoom(currentRoom);
+        printMap(currentRoom);
         break;
       case 4:
         printRoom(four);
         currentRoom = four;
+        printRoom(currentRoom);
+        printMap(currentRoom);
         break;
       case 5:
       pickUp();
@@ -132,7 +141,7 @@ int main() {
         break;
     }
   }
-
+  }
 } 
 
 //FUNCTIONS FOR COMMANDS
@@ -176,21 +185,34 @@ void pickUp() {
     //if a inventory slot is empty, PROCEED
     if (strcmp(inventory[i], "x") == false)
     {
-    if (!((storage[currentRoom])->getItem()[0] == 'x')) {
-      for (int a = 0; a < currentItem; a++){
-        inventory[i][a]=items[itemOrder][a];
+      if (!((storage[currentRoom])->getItem()[0] == 'x')) {
+        for (int a = 0; a < currentItem; a++){
+          inventory[i][a]=items[itemOrder][a];
+        }
+        cout << endl << (storage[currentRoom])->getItem()  << " picked up!" << endl;
+        (storage[currentRoom])->setItem(empty);
+        break;
       }
-      cout << endl << (storage[currentRoom])->getItem()  << " picked up!" << endl;
-      (storage[currentRoom])->setItem(empty);
-      break;
-    }
     }
   }
 
 }
 
-//drop item from inventory if room is empty
+//drop item from inventory if room is empty & inventory is not empty
 void drop() {
+
+  for (int i = 0; i < 5; i++){
+    if (inventory[i][0] != 'x') {
+      if ((storage[currentRoom])->getItem()[0] == 'x') {
+        (storage[currentRoom])->setItem(inventory[i]);
+        cout << (storage[currentRoom])->getItem() << " dropped!" << endl;
+        for (int a = 0; a < strlen(inventory[i]); a++) {
+          inventory[i][a]=' ';
+        }
+        inventory[i][0]='x';
+      }
+    }
+  }
 
 }
 
@@ -259,6 +281,6 @@ void printMap(int i) {
   << "Left: " << (storage[one])->getName()
   << " Right: " << (storage[two])->getName()
   << endl << "Top: " << (storage[three])->getName()
-  << " Bottom: " << (storage[four])->getName();
+  << " Bottom: " << (storage[four])->getName() << endl;
 
 }
