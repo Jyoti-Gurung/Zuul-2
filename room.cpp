@@ -36,10 +36,10 @@ char*room::getItem() {
     return str;
 }
 
-void room::setStatus(int input) {
-  status = input;
+void room::setId(int input) {
+  id = input;
 }
 
-int room::getStatus() {
-  return status;
+int room::getId() {
+  return id;
 }

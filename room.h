@@ -5,17 +5,17 @@ using namespace std;
 
 class room {
   public:
-  room();
+    room();
     void setName(char input[]);
     char* getName();
     void setItem(char input[]);
     char* getItem();
-    void setStatus(int input);
-    int getStatus();
+    void setId(int i);
+    int getId();
 
   protected:
   char nameInput[21];
-    char itemInput[21];
-    int status;
+  char itemInput[21];
+  int id;
 
 };

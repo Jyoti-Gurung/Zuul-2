@@ -10,11 +10,32 @@ Project: Zuul; text based adventure game with 15 "rooms" & 5 items(in the whole 
 #include "room.h"
 using namespace std;
 
-vector <room*> storage;
-
 void printRoom(int i);
+void printInventory();
+void pickUp();
 
-void hi();
+vector <room*> storage;
+char rooms[15][12];
+
+char items[5][15] = {
+  {'G','o','m','u'},
+  {'S','a','b','r','e'},
+  {'K','e','y'},
+  {'G','o','l','d'},
+  {'G','o','l','d','e','n','k','e','y'}
+};
+
+//store picked up items
+char inventory[5][15] = {
+  {'x'},
+  {'x'},
+  {'x'},
+  {'x'},
+  {'x'}
+};
+
+//keep track of the current room
+int currentRoom = 12;
 
 int main() {
 
@@ -36,32 +57,61 @@ int main() {
     {'P','o','o','p','d','e','c','k'}
   };
 
-  char items[5][15] = {
-    {'G','o','m','u'},
-    {'S','a','b','r','e'},
-    {'K','e','y'},
-    {'G','o','l','d'},
-    {'G','o','l','d','e','n','k','e','y'}
-  };
-  
-  //naming the rooms
+  //adding the rooms to the storage vector
   for (int i = 0; i < 15; i++) {
     room* nameless = new room();  storage.push_back(nameless);
     (storage[i])->setName(rooms[i]);
   }
-
-  (storage[1])->setItem(items[0]);
-  (storage[8])->setItem(items[1]);
-  (storage[10])->setItem(items[2]);
-  (storage[13])->setItem(items[3]);
-  (storage[14])->setItem(items[4]);
-
-  //printing rooms
-  /*
+  
+  //setting numbers to the rooms
   for (int i = 0; i < 15; i++) {
-    cout << storage[i]->getName() << endl;
+    (storage[i])->setId(i);
   }
-  */
+
+  //assigning items to rooms: Lowerdeck, Crowsnest, R5, R1, R7
+  (storage[1])->setItem(items[0]);
+  (storage[3])->setItem(items[1]);
+  (storage[6])->setItem(items[2]);
+  (storage[4])->setItem(items[3]);
+  (storage[12])->setItem(items[4]);
+
+  cout << endl << "Commands:" << endl << 
+  endl << "1: Left" <<
+  endl << "2: Right" <<
+  endl << "3: Up" <<
+  endl << "4: Down" <<
+  endl << "5: Pick up Item" <<
+  endl << "6: Print Inventory" <<
+  endl << "7: Quit game" << endl;
+
+  printRoom(currentRoom);
+
+  int logic;
+  while (logic != 7 || logic!= 0) {
+
+    cout << endl;
+    cin >> logic;
+    switch(logic) {
+      case 1:
+        
+        break;
+      case 2:
+        
+        break;
+      case 3:
+        
+        break;
+      case 4:
+
+        break;
+      case 5:
+      pickUp();
+        break;
+      case 6:
+      printInventory();
+        break;
+    }
+  }
 
 } 
 
@@ -69,13 +119,39 @@ int main() {
 
 void printRoom(int i) {
   cout 
+  << endl 
   << (storage[i])->getName() << endl
-  << (storage[i])->getItem() << endl
-  << (storage[i])->getStatus() << endl
-  ;
-  
+  << "Item: " << (storage[i])->getItem() 
+  << endl << "Room #: " << (storage[i])->getId() 
+  << endl;  
 }
 
-void hi() {
-  cout << "hi";
+void printInventory() {
+  
+  cout << endl << "Inventory:" << endl;
+
+  for (int i = 0; i < 5; i++){
+    cout << inventory[i] << endl;
+  }
+}
+
+void pickUp() {
+
+  int i = currentRoom;
+  int currentItem = 9; 
+
+  for (int i = 0; i < 5; i++){
+    if (strcmp(inventory[i], "x") == false) {
+      for (int a = 0; a < currentItem; a++){
+        inventory[i][a]=items[4][a];
+      }
+      
+      break;
+    }
+  }
+
+  cout << endl << (storage[i])->getItem()  << " picked up!" << endl;
+
+  //(storage[i])->setItem(inventory[0]);
+
 }
