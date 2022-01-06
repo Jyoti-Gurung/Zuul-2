@@ -54,7 +54,7 @@ char inventory[5][15] = {
 };
 
 //keep track of the current room
-int currentRoom = 14;
+int currentRoom = 0;
 
 //for directions aka map
 int one, two, three, four;
@@ -96,11 +96,11 @@ int main() {
   endl << "7: Print Inventory" <<
   endl << "8: Quit game" << endl;
 
-  printRoom(currentRoom);
-  printMap(currentRoom);
-
   int logic;
   while (logic != 8) {
+    
+    printRoom(currentRoom);
+    printMap(currentRoom);
 
     cout << endl;
     cin >> logic;
@@ -205,11 +205,8 @@ void printInventory() {
 }
 
 void printMap(int i) {
-  cout
-  << "Left: " << (storage[one])->getName()
-  << " Right: " << (storage[two])->getName()
-  << endl << "Top: " << (storage[three])->getName()
-  << " Bottom: " << (storage[four])->getName();
+  
+  //assigning exits to each room
   switch(i) {
     case 0:
       one = 2, two = 1, three = 3, four = 6;
@@ -257,4 +254,11 @@ void printMap(int i) {
       one = 13, two = 12, three = 11, four = 1;
       break;
   }
+
+  cout
+  << "Left: " << (storage[one])->getName()
+  << " Right: " << (storage[two])->getName()
+  << endl << "Top: " << (storage[three])->getName()
+  << " Bottom: " << (storage[four])->getName();
+
 }
