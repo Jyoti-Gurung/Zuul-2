@@ -10,11 +10,18 @@ Project: Zuul; text based adventure game with 15 "rooms" & 5 items(in the whole 
 #include "room.h"
 using namespace std;
 
+/*
+*
+INITIALIZE GLOBAL VARIABLES/THINGS
+*
+*/
+
 void printRoom(int i);
 void pickUp();
 void drop();
 void printInventory();
 void printMap(int i);
+void checkBlocked();
 
 vector <room*> storage;
 
@@ -59,7 +66,12 @@ int currentRoom = 0;
 //for directions aka map
 int one, two, three, four;
 
-//THE INFINITE LOOP OF TRAVEL, MAIN FUNCTION
+/*
+*
+MAIN
+*
+*/
+
 int main() {
 
   //adding the rooms to the storage vector
@@ -107,25 +119,21 @@ int main() {
     if (logic != 9) {
     switch(logic) {
       case 1:
-        printRoom(one);
         currentRoom = one;
         printRoom(currentRoom);
         printMap(currentRoom);
         break;
       case 2:
-        printRoom(two);
         currentRoom = two;
         printRoom(currentRoom);
         printMap(currentRoom);
         break;
       case 3:
-        printRoom(three);
         currentRoom = three;
         printRoom(currentRoom);
         printMap(currentRoom);
         break;
       case 4:
-        printRoom(four);
         currentRoom = four;
         printRoom(currentRoom);
         printMap(currentRoom);
@@ -144,7 +152,11 @@ int main() {
   }
 } 
 
-//FUNCTIONS FOR COMMANDS
+/*
+*
+FUNCTIONS
+*
+*/
 
 //print room; name, item and room #
 void printRoom(int i) {
@@ -283,4 +295,8 @@ void printMap(int i) {
   << endl << "Top: " << (storage[three])->getName()
   << " Bottom: " << (storage[four])->getName() << endl;
 
+}
+
+void checkBlocked() {
+  cout << "No passage here!";
 }
